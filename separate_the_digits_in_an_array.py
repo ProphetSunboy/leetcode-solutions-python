@@ -32,6 +32,16 @@ class Solution:
 # Second solution
 class Solution:
     def separateDigitsOfInteger(self, num: int) -> list[int]:
+        digits = []
+
+        while num > 0:
+            digit = num % 10
+            num //= 10
+            digits.append(digit)
+
+        return digits[::-1]
+
+    def separateDigits(self, nums: list[int]) -> list[int]:
         """Separates an integer into its individual digits.
 
         Given a positive integer, returns a list containing its digits in order from left to right.
@@ -49,19 +59,43 @@ class Solution:
         Time complexity: O(d) - where d is number of digits in the integer
         Space complexity: O(d) - for storing the digits
         """
-        digits = []
-
-        while num > 0:
-            digit = num % 10
-            num //= 10
-            digits.append(digit)
-
-        return digits[::-1]
-
-    def separateDigits(self, nums: list[int]) -> list[int]:
         answer = []
 
         for num in nums:
             answer.extend(self.separateDigitsOfInteger(num))
 
         return answer
+
+
+# Third solution
+class Solution:
+    def separateDigits(self, nums: List[int]) -> List[int]:
+        """
+        Given a list of positive integers `nums`, return a list `answer` that
+        consists of the digits of each integer in `nums`, after separating them,
+        in the same order.
+
+        To separate the digits of an integer is to get all the digits in
+        left-to-right order.
+
+        For example:
+            For the integer 10921, the separation is [1, 0, 9, 2, 1].
+
+        Args:
+            nums (list[int]): List of positive integers to separate into digits.
+
+        Returns:
+            list[int]: A list containing the digits of all integers in `nums`,
+                       in order.
+
+        Example:
+            Input: nums = [13,25,83,77]
+            Output: [1,3,2,5,8,3,7,7]
+
+        Time Complexity: O(n * d) where n is the number of integers in `nums`
+                         and d is the average number of digits per integer.
+        Space Complexity: O(n * d) for storing the result.
+
+        LeetCode: Beats 100% of submissions
+        """
+        return list(map(int, "".join(map(str, nums))))
